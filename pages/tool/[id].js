@@ -16,6 +16,10 @@ export default function ToolPage(){
   const [shareModal, setShareModal] = useState(null); // { url, secret }
   const [editCred, setEditCred] = useState(null); // { id, label, username, password }
 
+  // New states for copy feedback!
+  const [copiedLink, setCopiedLink] = useState(false);
+  const [copiedSecret, setCopiedSecret] = useState(false);
+
   useEffect(() => { if(id) fetchCreds(); }, [id]);
 
   async function fetchCreds(){
@@ -205,16 +209,36 @@ export default function ToolPage(){
           <div className="space-y-3">
             <div>
               <div className="text-sm text-gray-600 mb-1">URL</div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 items-center">
                 <input className="flex-1 px-3 py-2 border rounded" value={shareModal.url} readOnly />
-                <button className="px-3 py-2 bg-gray-200 rounded" onClick={async()=>{ await copyToClipboard(shareModal.url); }}>Copy</button>
+                <button
+                  className="px-3 py-2 bg-gray-200 rounded"
+                  onClick={async () => {
+                    await copyToClipboard(shareModal.url);
+                    setCopiedLink(true);
+                    setTimeout(() => setCopiedLink(false), 1500);
+                  }}
+                >
+                  Copy
+                </button>
+                {copiedLink && <span className="text-green-600 ml-2">✓ Copied!</span>}
               </div>
             </div>
             <div>
               <div className="text-sm text-gray-600 mb-1">Secret (share separately)</div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 items-center">
                 <input className="flex-1 px-3 py-2 border rounded" value={shareModal.secret} readOnly />
-                <button className="px-3 py-2 bg-gray-200 rounded" onClick={async()=>{ await copyToClipboard(shareModal.secret); }}>Copy</button>
+                <button
+                  className="px-3 py-2 bg-gray-200 rounded"
+                  onClick={async () => {
+                    await copyToClipboard(shareModal.secret);
+                    setCopiedSecret(true);
+                    setTimeout(() => setCopiedSecret(false), 1500);
+                  }}
+                >
+                  Copy
+                </button>
+                {copiedSecret && <span className="text-green-600 ml-2">✓ Copied!</span>}
               </div>
             </div>
           </div>

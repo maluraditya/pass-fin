@@ -1,0 +1,10 @@
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/api/credentials": "pages/api/credentials.js",
+  "/dashboard": "pages/dashboard.js",
+  "/tool/[id]": "pages/tool/[id].js",
+  "/api/share": "pages/api/share.js",
+  "/s/[token]": "pages/s/[token].js"
+}
